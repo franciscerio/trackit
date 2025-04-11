@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.fcerio.tracks.network"
-    compileSdk = 35
+    namespace = "com.fcerio.features.tracks.network"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

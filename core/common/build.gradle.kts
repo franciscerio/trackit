@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fcerio.features.tracks.ui"
+    namespace = "com.fcerio.core.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    api(libs.timber)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -12,11 +12,18 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/common" />
+            <option value="$PROJECT_DIR$/core/common-android" />
+            <option value="$PROJECT_DIR$/core/common-compose" />
             <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/core/local" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/tracks" />
+            <option value="$PROJECT_DIR$/features/tracks/data" />
+            <option value="$PROJECT_DIR$/features/tracks/domain" />
+            <option value="$PROJECT_DIR$/features/tracks/network" />
+            <option value="$PROJECT_DIR$/features/tracks/ui" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
