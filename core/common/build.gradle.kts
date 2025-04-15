@@ -27,18 +27,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    // https://github.com/Kotlin/kotlinx.coroutines?tab=readme-ov-file
+    packaging {
+        resources {
+            excludes += "DebugProbesKt.bin"
+            excludes +="META-INF/INDEX.LIST"
+        }
+    }
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
-
     api(libs.timber)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    api(libs.bundles.coroutines)
 }

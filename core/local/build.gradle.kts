@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.ksp.library)
     alias(libs.plugins.hilt)
     alias(libs.plugins.room.compiler)
-    kotlin("plugin.serialization") version libs.versions.kotlin
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    api(project(":core:domain"))
+    api(projects.core.domain)
     api(libs.androidx.core.ktx)
     testImplementation(libs.junit)
     // EncryptedSharedPreferences
@@ -55,8 +55,6 @@ dependencies {
     api(libs.hilt.android)
     // Room
     api(libs.room.runtime)
-
-    implementation(libs.kotlinx.serialization.json)
 
     // SQLCipher
     api(libs.sql.cipher)

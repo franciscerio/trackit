@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp.library)
     alias(libs.plugins.hilt)
-    kotlin("plugin.serialization") version libs.versions.kotlin
+    kotlin("plugin.serialization")
 }
 
 apply(from = "$rootDir/secret.gradle.kts")
@@ -48,26 +48,16 @@ android {
 }
 
 dependencies {
-    api(libs.timber)
-    api(project(":core:domain"))
-    api(libs.moshi)
-    api(libs.moshi.kotlin)
-    api(libs.kotlin.reflect)
-    // Retrofit
-    ksp(libs.moshi.codegen)
-    api(libs.retrofit)
-    api(libs.retrofit.moshi)
-    api(libs.retrofit.scalars)
-
-    // OkHttp
-    api(libs.okhttp)
-    api(libs.okhttp.logging)
+    implementation(projects.core.common)
+    implementation(projects.core.domain)
 
     // Dagger-Hilt
     ksp(libs.hilt.compiler)
-    api(libs.hilt.android)
+    implementation(libs.hilt.android)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    api(libs.bundles.ktor)
 
     // Chucker
     debugApi(libs.chucker)
