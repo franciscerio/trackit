@@ -1,7 +1,15 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp.library)
+    alias(libs.plugins.hilt)
+    kotlin("plugin.serialization")
 }
+
+apply(from = "$rootDir/secret.gradle.kts")
+
+val stagingApi: List<Pair<String, String>> by project.extra
+val releaseApi: List<Pair<String, String>> by project.extra
 
 android {
     namespace = "com.fcerio.features.tracks.data"
@@ -21,6 +29,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            releaseApi.forEach { buildConfigField("String", it.first, "\"${it.second}\"") }
+        }
+        debug {
+            stagingApi.forEach { buildConfigField("String", it.first, "\"${it.second}\"") }
         }
     }
     compileOptions {
@@ -30,13 +42,28 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    implementation(projects.core.common)
+    implementation(projects.core.domain)
+    implementation(projects.core.network)
+    implementation(projects.core.local)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(projects.features.tracks.domain)
+    implementation(projects.features.tracks.network)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.paging.compose)
+
+    // Dagger-Hilt
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

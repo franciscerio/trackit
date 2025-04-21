@@ -1,7 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp.library)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization")
 }
+
+apply(from = "$rootDir/secret.gradle.kts")
+
+val stagingApi: List<Pair<String, String>> by project.extra
+val releaseApi: List<Pair<String, String>> by project.extra
 
 android {
     namespace = "com.fcerio.trackit"
@@ -24,6 +33,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            releaseApi.forEach { buildConfigField("String", it.first, "\"${it.second}\"") }
+        }
+        debug {
+            stagingApi.forEach { buildConfigField("String", it.first, "\"${it.second}\"") }
         }
     }
     compileOptions {
@@ -33,13 +46,37 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
 
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.network)
+    implementation(projects.core.commonCompose)
+    implementation(projects.features.tracks)
+
+    // Android Jetpack
+    // https://developer.android.com/reference/androidx/packages
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    // Testing
+    // https://developer.android.com/training/testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
