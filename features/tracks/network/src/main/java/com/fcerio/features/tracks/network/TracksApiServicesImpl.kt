@@ -10,12 +10,14 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
+import io.ktor.client.request.url
 import io.ktor.http.HttpHeaders
 import io.ktor.http.appendPathSegments
 import io.ktor.http.parametersOf
+import timber.log.Timber
 import javax.inject.Inject
 
-internal class TracksApiServicesImpl @Inject constructor(
+class TracksApiServicesImpl @Inject constructor(
     private val httpClient: HttpClient
 ) : TracksApiServices {
 
@@ -23,12 +25,13 @@ internal class TracksApiServicesImpl @Inject constructor(
         token: String,
         payload: TrackFilter
     ): BasePagingResponse<List<TrackDTO>> {
-        val response = httpClient.get("/tracks") {
+        val response = httpClient.get {
             headers {
                 append(HttpHeaders.Authorization, token)
             }
 
             url {
+                url("/tracks")
                 parametersOf(payload.toMap())
             }
         }.body<BasePagingResponse<List<TrackDTO>>>()
@@ -52,6 +55,7 @@ internal class TracksApiServicesImpl @Inject constructor(
         token: String,
         trackId: Long
     ): BaseResponse<List<TrackDTO>> {
+        Timber.d("GET RELATED TRACKS")
         val response = httpClient.get("/tracks") {
             headers {
                 append(HttpHeaders.Authorization, token)
@@ -59,7 +63,7 @@ internal class TracksApiServicesImpl @Inject constructor(
             url {
                 appendPathSegments(trackId.toString(), "related")
             }
-        }.body<BasePagingResponse<List<TrackDTO>>>()
+        }.body<BaseResponse<List<TrackDTO>>>()
         return response
     }
 

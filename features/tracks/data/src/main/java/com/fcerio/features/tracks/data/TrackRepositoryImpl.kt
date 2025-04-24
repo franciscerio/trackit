@@ -1,6 +1,7 @@
 package com.fcerio.features.tracks.data
 
 import com.fcerio.core.domain.Paging
+import com.fcerio.core.domain.SessionProvider
 import com.fcerio.features.tracks.domain.Track
 import com.fcerio.features.tracks.network.models.payload.builder.TrackFilter
 import com.fcerio.features.tracks.network.remote.TrackRemoteSource

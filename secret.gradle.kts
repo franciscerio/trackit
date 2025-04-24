@@ -18,12 +18,12 @@ val secretProd by extra(
 
 val stagingApi by extra(
     listOf(
-        Pair("BASE_URL", "https://api-playground.appetiserdev.tech")
+        Pair("BASE_URL_HOST", "api-playground.appetiserdev.tech/api/v1")
     )
 )
 
 val releaseApi by extra(
     listOf(
-        Pair("BASE_URL", "https://api.appetiserdev.tech")
+        Pair("BASE_URL_HOST", "api.appetiserdev.tech/api/v1")
     )
 )

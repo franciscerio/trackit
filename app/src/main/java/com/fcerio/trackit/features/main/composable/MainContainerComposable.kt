@@ -1,29 +1,45 @@
 package com.fcerio.trackit.features.main.composable
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.fcerio.core.common.compose.utils.nonSpatialExpressiveSpring
+import com.fcerio.core.common.compose.utils.spatialExpressiveSpring
 import com.fcerio.trackit.components.AppScaffold
+import com.fcerio.trackit.components.AppSnackBar
+import com.fcerio.trackit.components.navgraph.addHomeGraph
 import com.fcerio.trackit.components.rememberAppScaffoldState
 import com.fcerio.trackit.features.main.MainViewModel
 import com.fcerio.trackit.navigation.AppNavController
 import com.fcerio.trackit.navigation.HomeSections
 import com.fcerio.trackit.navigation.rememberAppNavController
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MainContainer(navController: AppNavController) {
+fun MainContainerComposable(navController: AppNavController) {
     val appScaffoldState = rememberAppScaffoldState()
     val nestedNavController = rememberAppNavController()
     val navBackStackEntry by nestedNavController.navController.currentBackStackEntryAsState()
-    val currentRoute by remember {
-        derivedStateOf {
-            navBackStackEntry?.destination?.route ?: HomeSections.HOME.route
-        }
-    }
+//    val currentRoute by remember {
+//        derivedStateOf {
+//            navBackStackEntry?.destination?.route ?: HomeSections.HOME.route
+//        }
+//    }
     val sharedTransitionScope = LocalSharedTransitionScope.current
         ?: throw IllegalStateException("No SharedElementScope found")
     val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
@@ -42,7 +58,7 @@ fun MainContainer(navController: AppNavController) {
         bottomBar = {
             with(animatedVisibilityScope) {
                 with(sharedTransitionScope) {
-                    MainNavigationBar(
+                    MainNavigationBarComposable(
                         tabs = uiState.tabs,
                         currentRoute = { uiState.selectedTab },
                         favoriteTracksCount = { uiState.favoriteBadgeCount },
@@ -92,6 +108,3 @@ fun MainContainer(navController: AppNavController) {
         }
     }
 }
-
-val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope?> { null }
-val LocalSharedTransitionScope = compositionLocalOf<SharedTransitionScope?> { null }

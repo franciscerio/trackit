@@ -49,12 +49,12 @@ android {
 
 dependencies {
     implementation(projects.core.common)
-    implementation(projects.core.domain)
+    api(projects.core.domain)
     implementation(projects.core.network)
     implementation(projects.core.local)
 
     implementation(projects.features.tracks.domain)
-    implementation(projects.features.tracks.network)
+    api(projects.features.tracks.network)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

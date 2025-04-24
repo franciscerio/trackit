@@ -59,14 +59,15 @@ android {
 
 dependencies {
 
+    implementation(projects.core.common)
+    implementation(projects.core.domain)
+    implementation(projects.core.commonAndroid)
+
+    implementation(projects.features.tracks)
+    
     implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
-    implementation(projects.core.commonAndroid)
-    implementation(projects.core.network)
-    implementation(projects.core.commonCompose)
-    implementation(projects.features.tracks)
 
     // Android Jetpack
     // https://developer.android.com/reference/androidx/packages

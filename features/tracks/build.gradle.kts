@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp.library)
+    kotlin("plugin.serialization")
 }
-
 android {
     namespace = "com.fcerio.features.track"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -37,9 +37,10 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    api(projects.features.tracks.data)
+    api(projects.features.tracks.ui)
+    api(projects.features.tracks.domain)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -41,9 +41,11 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.benchmark.common)
+
     testImplementation(libs.junit)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

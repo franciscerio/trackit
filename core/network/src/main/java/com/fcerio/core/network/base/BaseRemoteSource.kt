@@ -10,4 +10,8 @@ open class BaseRemoteSource {
     fun <T> BaseResponse<T>.successOr(fallback: T): T {
         return (this as? BaseResponse<T>)?.data ?: fallback
     }
+
+    fun <T> BasePagingResponse<T>.successOr(fallback: T): T {
+        return (this as? BasePagingResponse<T>)?.data ?: fallback
+    }
 }

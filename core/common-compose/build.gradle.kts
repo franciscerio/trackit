@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp.library)
+    alias(libs.plugins.compose.compiler)
 }
+
 
 android {
     namespace = "com.fcerio.core.common.compose"
@@ -40,13 +44,23 @@ dependencies {
 
     // Compose
     api(libs.bundles.compose)
+    api(libs.hilt.navigation.compose)
+    api(libs.androidx.constraintlayout.compose)
+
+    // Dagger-Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
+
+    api(libs.coil3.compose)
+    api(libs.coil3.network.okhttp)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
