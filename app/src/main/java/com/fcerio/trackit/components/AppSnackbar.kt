@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import com.fcerio.core.common.compose.AppTheme
 
 @Composable
 fun AppSnackBar(
@@ -14,9 +15,9 @@ fun AppSnackBar(
     modifier: Modifier = Modifier,
     actionOnNewLine: Boolean = false,
     shape: Shape = MaterialTheme.shapes.small,
-    backgroundColor: Color = MaterialTheme.colorScheme.background,
-    contentColor: Color = MaterialTheme.colorScheme.secondary,
-    actionColor: Color = MaterialTheme.colorScheme.primary
+    backgroundColor: Color = AppTheme.colors.neutralsBackground,
+    contentColor: Color = AppTheme.colors.textSecondary,
+    actionColor: Color = AppTheme.colors.primaryDefault
 ) {
     Snackbar(
         snackbarData = snackbarData,

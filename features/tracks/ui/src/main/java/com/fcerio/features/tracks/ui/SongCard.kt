@@ -152,7 +152,7 @@ fun SongCard(
             ),
             style = AppTheme.typography.subHeadline,
             title = model().songArtist,
-            textColor = MaterialTheme.colorScheme.tertiary
+            textColor = AppTheme.colors.textTertiary
         )
     }
 }
@@ -167,7 +167,7 @@ fun HeartView(
         modifier = modifier
             .size(40.dp)
             .background(color = Color.White, shape = CircleShape)
-            .border(1.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+            .border(1.dp, color = AppTheme.colors.neutralsStroke, shape = CircleShape)
             .clip(CircleShape)
             .clickable {
                 onClicked?.invoke()

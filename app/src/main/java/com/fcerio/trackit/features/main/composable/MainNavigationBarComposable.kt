@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.fcerio.core.common.compose.AppTheme
 import com.fcerio.trackit.navigation.HomeSections
 
 @Composable
@@ -31,9 +32,9 @@ fun MainNavigationBarComposable(
         NavigationBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(width = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+                .border(width = 1.dp, color = AppTheme.colors.neutralsStroke)
                 .padding(top = 2.dp, end = 2.dp, start = 0.dp, bottom = 0.dp),
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = AppTheme.colors.neutralsBackground
         ) {
             tabs.forEachIndexed { _, item ->
                 NavigationBarItem(
@@ -56,13 +57,13 @@ fun MainNavigationBarComposable(
                         navigateToRoute(item)
                     },
                     colors = NavigationBarItemColors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        selectedIndicatorColor = MaterialTheme.colorScheme.background,
-                        unselectedIconColor = MaterialTheme.colorScheme.tertiary,
-                        unselectedTextColor = MaterialTheme.colorScheme.tertiary,
-                        disabledIconColor = MaterialTheme.colorScheme.surfaceContainer,
-                        disabledTextColor = MaterialTheme.colorScheme.surfaceContainer
+                        selectedIconColor = AppTheme.colors.primaryDefault,
+                        selectedTextColor = AppTheme.colors.primaryDefault,
+                        selectedIndicatorColor = AppTheme.colors.neutralsBackground,
+                        unselectedIconColor = AppTheme.colors.textTertiary,
+                        unselectedTextColor = AppTheme.colors.textTertiary,
+                        disabledIconColor = AppTheme.colors.textDisabled,
+                        disabledTextColor = AppTheme.colors.textDisabled
                     )
                 )
             }

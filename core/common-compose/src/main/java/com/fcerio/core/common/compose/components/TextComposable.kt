@@ -10,12 +10,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.fcerio.core.common.compose.AppTheme
 
 @Composable
 fun TextComposable(
     modifier: Modifier = Modifier,
     title: String,
-    textColor: Color = MaterialTheme.colorScheme.primary,
+    textColor: Color = AppTheme.colors.primaryDefault,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
     maxLines: Int = 1,
     overflow: TextOverflow = TextOverflow.Visible

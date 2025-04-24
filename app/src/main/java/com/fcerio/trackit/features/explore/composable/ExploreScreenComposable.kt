@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.fcerio.core.common.compose.AppTheme
 import com.fcerio.core.common.compose.components.SearchBarComposable
 import com.fcerio.core.common.compose.components.TitleBarComposable
 import com.fcerio.core.common.compose.dimensions.Margins
@@ -58,14 +59,14 @@ fun ExploreScreenComposable(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
+                .background(AppTheme.colors.neutralsBackground)
         ) {
             // Modifier the title bar, TopAppBar to it will check the StatusBar height
             TopAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = AppTheme.colors.neutralsBackground,
+                    titleContentColor = AppTheme.colors.primaryDefault,
                 ),
                 title = {
                     TitleBarComposable(Modifier.wrapContentWidth(), title = stringResource(R.string.explore))
@@ -92,8 +93,8 @@ fun ExploreScreenComposable(
                     Indicator(
                         modifier = Modifier.align(Alignment.TopCenter),
                         isRefreshing = uiState.isRefreshing,
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        color = MaterialTheme.colorScheme.primary,
+                        containerColor = AppTheme.colors.primaryShade2,
+                        color = AppTheme.colors.primaryDefault,
                         state = state
                     )
                 },

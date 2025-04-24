@@ -38,6 +38,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fcerio.core.common.compose.AppTheme
 import com.fcerio.core.common.compose.R
 import com.fcerio.core.common.compose.TrackitTheme
 
@@ -50,18 +51,18 @@ fun SearchBarComposable(
     onValueChanged: (String) -> Unit,
     enabled: Boolean = true,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    backgroundColor: Color = MaterialTheme.colorScheme.onSecondary,
-    activeBackgroundColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
-    activeStrokeColor: Color = MaterialTheme.colorScheme.primary,
-    defaultStrokeColor: Color = MaterialTheme.colorScheme.outlineVariant,
-    focusedTextColor: Color = MaterialTheme.colorScheme.inversePrimary,
-    unfocusedTextColor: Color = MaterialTheme.colorScheme.tertiary,
-    unfocusedPlaceholderColor: Color = MaterialTheme.colorScheme.tertiary,
-    focusedPlaceholderColor: Color = MaterialTheme.colorScheme.inversePrimary,
-    disabledContainerColor: Color = MaterialTheme.colorScheme.onSecondary,
-    activeColor: Color = MaterialTheme.colorScheme.primary,
-    focusedLeadingIconColor: Color = MaterialTheme.colorScheme.inversePrimary,
-    unfocusedLeadingIconColor: Color = MaterialTheme.colorScheme.inversePrimary,
+    backgroundColor: Color = AppTheme.colors.neutralsBackground,
+    activeBackgroundColor: Color = AppTheme.colors.primaryShade3,
+    activeStrokeColor: Color = AppTheme.colors.primaryDefault,
+    defaultStrokeColor: Color = AppTheme.colors.neutralsStroke,
+    focusedTextColor: Color = AppTheme.colors.textPrimary,
+    unfocusedTextColor: Color = AppTheme.colors.textTertiary,
+    unfocusedPlaceholderColor: Color = AppTheme.colors.textTertiary,
+    focusedPlaceholderColor: Color = AppTheme.colors.textPrimary,
+    disabledContainerColor: Color = AppTheme.colors.neutralsBackground,
+    activeColor: Color = AppTheme.colors.primaryDefault,
+    focusedLeadingIconColor: Color = AppTheme.colors.textPrimary,
+    unfocusedLeadingIconColor: Color = AppTheme.colors.textPrimary,
     searchIcon: @Composable (() -> Unit) = {
         Icon(
             modifier = Modifier.size(20.dp),
