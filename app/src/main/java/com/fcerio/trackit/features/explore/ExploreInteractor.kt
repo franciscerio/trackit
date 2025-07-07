@@ -40,8 +40,6 @@ class ExploreInteractor @Inject constructor(
 
     override fun actionProcessor(actions: Flow<ExploreAction>): Flow<ExploreResult> {
         return merge(
-            actions.filterIsInstance<ExploreAction.LoadInitializeTracks>()
-                .flatMapLatest { loadTracks(TrackFilter.default()) },
             actions.filterIsInstance<ExploreAction.SubscribeToTrack>().flatMapLatest { subscribeToTracks() },
             actions.filterIsInstance<ExploreAction.PulledToRefresh>().flatMapLatest { loadNewTracks() }
         )

@@ -13,7 +13,6 @@ data class ExploreState(
 
 sealed interface ExploreAction {
     data object SubscribeToTrack : ExploreAction
-    data object LoadInitializeTracks : ExploreAction
     data object PulledToRefresh : ExploreAction
 }
 

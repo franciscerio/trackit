@@ -19,6 +19,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,12 +29,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.fcerio.core.common.compose.AppTheme
 import com.fcerio.core.common.compose.components.SearchBarComposable
 import com.fcerio.core.common.compose.components.TitleBarComposable
 import com.fcerio.core.common.compose.dimensions.Margins
 import com.fcerio.features.tracks.ui.SongCard
 import com.fcerio.trackit.R
+import com.fcerio.trackit.components.Loading
 import com.fcerio.trackit.features.explore.ExploreViewModel
 
 private typealias OnTrackClickListener = (Long) -> Unit
@@ -49,11 +54,8 @@ fun ExploreScreenComposable(
     val viewModel = hiltViewModel<ExploreViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val tracks by remember(uiState.tracks) {
-        mutableStateOf(uiState.tracks)
-    }
-
     val state = rememberPullToRefreshState()
+    val lazyPagingItems = viewModel.pager.collectAsLazyPagingItems()
 
     Surface(modifier) {
         Column(
@@ -69,7 +71,10 @@ fun ExploreScreenComposable(
                     titleContentColor = AppTheme.colors.primaryDefault,
                 ),
                 title = {
-                    TitleBarComposable(Modifier.wrapContentWidth(), title = stringResource(R.string.explore))
+                    TitleBarComposable(
+                        Modifier.wrapContentWidth(),
+                        title = stringResource(R.string.explore)
+                    )
                 }
             )
 
@@ -112,16 +117,26 @@ fun ExploreScreenComposable(
                         .fillMaxSize()
                         .padding(top = 1.dp),
                     content = {
-                        items(tracks) { track ->
-                            SongCard(
-                                model = { track },
-                                onClicked = {
-                                    onTrackClickListener.invoke(it.id)
-                                },
-                                onFavoriteClicked = {
-                                    onTrackFavoriteClickListener.invoke(it.id)
-                                }
-                            )
+                        items(
+                            lazyPagingItems.itemCount,
+                            lazyPagingItems.itemKey {
+                                it.id
+                            }
+                        ) { index ->
+                            val track = lazyPagingItems[index]
+                            if (track != null) {
+                                SongCard(
+                                    model = { track },
+                                    onClicked = {
+                                        onTrackClickListener.invoke(it.id)
+                                    },
+                                    onFavoriteClicked = {
+                                        onTrackFavoriteClickListener.invoke(it.id)
+                                    }
+                                )
+                            } else {
+                                Loading()
+                            }
                         }
                     }
                 )

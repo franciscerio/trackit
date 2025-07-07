@@ -71,11 +71,11 @@ data class TrackitColor(
 )
 
 val DarkColor = TrackitColor(
-    primaryDefault = Color(0xFF004AD9),
+    primaryDefault = Color(0xFF000000),
     primaryShade1 = Color(0xFF4D80EA),
     primaryShade2 = Color(0xFFE5EDFB),
     primaryShade3 = Color(0xFFF2F6FD),
-    textPrimary = Color(0xFF050529),
+    textPrimary = Color(0xFFE91E63),
     textSecondary = Color(0xFFB4B4BF),
     textTertiary = Color(0xFF828294),
     textDisabled = Color(0xFFB4B4BF),

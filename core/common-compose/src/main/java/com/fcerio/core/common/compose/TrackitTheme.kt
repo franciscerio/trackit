@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TrackitTheme(
-    isDarkTheme: Boolean = isSystemInDarkTheme().not(),
+    isDarkTheme: Boolean = isSystemInDarkTheme(),
     colors: TrackitColor = if (isDarkTheme) DarkColor else LightColor,
     typography: TrackitTypography = AppTheme.typography,
     shapes: Shapes = Shapes(
