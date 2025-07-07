@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import coil3.size.Scale
 import com.fcerio.core.common.compose.AppTheme
 import com.fcerio.core.common.compose.TrackitTheme
 import com.fcerio.core.common.compose.components.CardComposable
@@ -82,15 +83,16 @@ fun SongCard(
                     modifier = Modifier
                         .matchParentSize()
                         .aspectRatio(1f),
-                    contentScale = ContentScale.FillHeight,
+                    contentScale = ContentScale.Crop,
                     contentDescription = null,
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(model().imageURL)
                         .crossfade(true)
+                        .scale(Scale.FILL)
                         .build(),
                     loading = {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(Margins.XX_LARGE)
+                            modifier = Modifier.size(35.dp)
                         )
                     },
                     error = {

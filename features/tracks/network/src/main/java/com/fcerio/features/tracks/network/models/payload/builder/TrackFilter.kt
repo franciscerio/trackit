@@ -1,5 +1,7 @@
 package com.fcerio.features.tracks.network.models.payload.builder
 
+import com.fcerio.core.common.PAGE_LIMIT
+
 class TrackFilter(
     private val search: String? = null,
     private val isFavorite: Int? = null,
@@ -20,7 +22,7 @@ class TrackFilter(
         builder.page
     )
 
-    fun toMap(): Map<String, List<String>> {
+    fun toMapList(): Map<String, List<String>> {
         val map = mutableMapOf<String, List<String>>()
         search?.let {
             map["search"] = listOf(it)
@@ -40,11 +42,31 @@ class TrackFilter(
         return map
     }
 
+    fun toMap(): Map<String, String> {
+        val map = mutableMapOf<String, String>()
+        search?.let {
+            map["search"] = it
+        }
+
+        isFavorite?.let {
+            map["filter[only_favorites]"] = it.toString()
+        }
+
+        limit?.let {
+            map["per_page"] = it.toString()
+        }
+
+        page?.let {
+            map["page"] = it.toString()
+        }
+        return map
+    }
+
     class Builder {
 
         var search: String? = null
         var isFavorite: Int? = null
-        var limit: Int? = 10
+        var limit: Int? = PAGE_LIMIT
         var page: Int? = null
 
         fun search(search: String) = apply {

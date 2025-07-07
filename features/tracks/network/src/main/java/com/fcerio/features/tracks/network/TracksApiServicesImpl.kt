@@ -9,10 +9,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
+import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.url
 import io.ktor.http.HttpHeaders
 import io.ktor.http.appendPathSegments
+import io.ktor.http.parameters
 import io.ktor.http.parametersOf
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,14 +27,16 @@ class TracksApiServicesImpl @Inject constructor(
         token: String,
         payload: TrackFilter
     ): BasePagingResponse<List<TrackDTO>> {
-        val response = httpClient.get {
+        val response = httpClient.get("/tracks") {
             headers {
                 append(HttpHeaders.Authorization, token)
             }
 
             url {
-                url("/tracks")
-                parametersOf(payload.toMap())
+                payload.toMap()
+                    .forEach {
+                        parameters.append(it.key, it.value)
+                    }
             }
         }.body<BasePagingResponse<List<TrackDTO>>>()
 

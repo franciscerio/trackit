@@ -16,10 +16,12 @@ import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.ANDROID
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.request.header
@@ -33,7 +35,7 @@ import okhttp3.Interceptor
 import timber.log.Timber
 import javax.inject.Singleton
 
-private const val TIME_OUT = 6000L
+private const val TIME_OUT = 300000L
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -46,10 +48,10 @@ class NetworkModule {
         @AuthInterceptorScope authInterceptor: Interceptor?
     ): HttpClientEngine {
         return OkHttp.create {
+            addInterceptor(interceptor)
             if (authInterceptor != null) {
                 addInterceptor(authInterceptor)
             }
-            addInterceptor(interceptor)
         }
     }
 
@@ -61,11 +63,13 @@ class NetworkModule {
         @AuthInterceptorScope authInterceptor: Interceptor?
     ): HttpClient {
         return HttpClient(engine) {
+            expectSuccess = true
+
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
                     host = BuildConfig.BASE_URL_HOST
-                    path("/api/v1")
+                    // path("/api/v1")
                 }
 
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
@@ -108,8 +112,9 @@ class NetworkModule {
     fun providesChuckerInterceptor(@ApplicationContext context: Context) =
         ChuckerInterceptor
             .Builder(context)
-            .collector(ChuckerCollector(context, false))
+            .collector(ChuckerCollector(context, true))
             .maxContentLength(200_000L)
-            .alwaysReadResponseBody(true)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
             .build()
 }

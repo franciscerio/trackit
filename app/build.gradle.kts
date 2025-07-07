@@ -73,6 +73,7 @@ dependencies {
     // https://developer.android.com/reference/androidx/packages
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.paging.compose)
 
     implementation(libs.kotlinx.serialization.json)
 
